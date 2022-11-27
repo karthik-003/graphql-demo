@@ -1,0 +1,60 @@
+input FullNameRequests {
+    firstName: String!
+    lastName: String!
+}
+
+type Address {
+    locality: String
+    city: String
+    state: String
+    zipCode: String
+}
+
+type Department{
+    id: String
+    name: String
+    head: String
+}
+enum DepartmentNameFilter{
+    All,
+    Computers,
+    Electronics,
+    Mechanical,
+    Civil,
+    Aerospace,
+    Electrical
+}
+type StudentInfo {
+    id: String
+    firstName: String
+    lastName: String
+    age: String
+    gender: String
+    address: Address
+    department: Department
+}
+
+input AddStudentRequest{
+    firstName: String
+    lastName: String
+    gender: String
+    age: String
+    locality: String
+    city: String
+    state: String
+    zipCode: String
+}
+
+type Query {
+    firstQuery: String
+    fullName(fullNameRequests: FullNameRequests) : String
+    getAllStudents : [StudentInfo]
+    getStudentsFromDepartment(departmentNameFilters: [DepartmentNameFilter]): [StudentInfo]
+    getStudentById(studentId: String): StudentInfo
+}
+
+type Mutation {
+    addStudent(addStudentRequest: AddStudentRequest): StudentInfo
+    updateStudentDepartment(studentId: String, departmentNameFilter: DepartmentNameFilter): StudentInfo
+}
+
